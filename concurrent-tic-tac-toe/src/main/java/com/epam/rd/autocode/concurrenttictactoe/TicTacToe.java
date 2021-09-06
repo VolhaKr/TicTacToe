@@ -28,16 +28,14 @@ public interface TicTacToe {
     char lastMark();
 
     static TicTacToe buildGame() {
-        TicTacToe_Impl ticTacToe_ = new TicTacToe_Impl();
-        ticTacToe_.fillEmptyTable();
+        TicTacToeImpl ticTacToeImpl = new TicTacToeImpl();
+        ticTacToeImpl.fillEmptyTable();
         // Player.createPlayer(ticTacToe, mark, strategy);
-
-
-        return ticTacToe_;
+        return ticTacToeImpl;
     }
 
     boolean isGameStart();
 
-    void setGameStart(boolean b);
+    void setGameStart(boolean gameStart);
 
 }

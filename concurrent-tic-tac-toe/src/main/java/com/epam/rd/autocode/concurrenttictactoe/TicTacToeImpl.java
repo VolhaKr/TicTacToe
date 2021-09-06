@@ -2,13 +2,15 @@ package com.epam.rd.autocode.concurrenttictactoe;
 
 import java.util.Arrays;
 
-public class TicTacToe_Impl implements TicTacToe {
+public class TicTacToeImpl implements TicTacToe {
 
 
-    volatile char[][] gameTable = new char[3][3];
-    volatile char lastMarking;
-    volatile boolean gameStart = false;
-    volatile boolean gameEnd = false;
+    private volatile char[][] gameTable = new char[3][3];
+    private final int TABLE_SIZE = 3;
+    private final char EMPTY_CELL = ' ';
+    private volatile char lastMarker;
+    private volatile boolean gameStart = false;
+    private volatile boolean gameEnd = false;
 
     @Override
     public boolean isGameStart() {
@@ -33,11 +35,11 @@ public class TicTacToe_Impl implements TicTacToe {
 //        Lock tableLock = new ReentrantLock();
 //        tableLock.lock();
         // synchronized (gameTable) {
-        if (gameTable[x][y] != ' ') {
+        if (gameTable[x][y] != EMPTY_CELL) {
             throw new IllegalArgumentException();
         } else {
             gameTable[x][y] = mark;
-            lastMarking = mark;
+            lastMarker = mark;
             //    gameIsOver();
         }
     }
@@ -49,8 +51,8 @@ public class TicTacToe_Impl implements TicTacToe {
     @Override
     public synchronized char[][] table() {
         final char[][] tableCopy = new char[3][3];
-        for ( int i = 0; i < 3; i++ ) {
-            for ( int j = 0; j < 3; j++ ) {
+        for ( int i = 0; i < TABLE_SIZE; i++ ) {
+            for ( int j = 0; j < TABLE_SIZE; j++ ) {
                 tableCopy[i][j] = gameTable[i][j];
             }
         }
@@ -60,17 +62,14 @@ public class TicTacToe_Impl implements TicTacToe {
 
     @Override
     public synchronized char lastMark() {
-        return lastMarking;
+        return lastMarker;
         //lastMark[lastMarkNumber.intValue()-1];
     }
 
     public void fillEmptyTable() {
-
-        for ( int i = 0; i < 3; i++ ) {
+        for (int i = 0; i < TABLE_SIZE; i++ ) {
             Arrays.fill(gameTable[i], ' ');
         }
     }
-
-
 }
 
