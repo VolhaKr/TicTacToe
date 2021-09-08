@@ -4,9 +4,8 @@ import java.util.Arrays;
 
 public class TicTacToeImpl implements TicTacToe {
 
-
-    private volatile char[][] gameTable = new char[3][3];
     private final int TABLE_SIZE = 3;
+    private volatile char[][] gameTable = new char[TABLE_SIZE][TABLE_SIZE];
     private final char EMPTY_CELL = ' ';
     private volatile char lastMarker;
     private volatile boolean gameStart = false;
@@ -50,7 +49,7 @@ public class TicTacToeImpl implements TicTacToe {
 
     @Override
     public synchronized char[][] table() {
-        final char[][] tableCopy = new char[3][3];
+        final char[][] tableCopy = new char[TABLE_SIZE][TABLE_SIZE];
         for ( int i = 0; i < TABLE_SIZE; i++ ) {
             for ( int j = 0; j < TABLE_SIZE; j++ ) {
                 tableCopy[i][j] = gameTable[i][j];
